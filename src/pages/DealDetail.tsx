@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Flame, MessageCircle } from "lucide-react";
 
-import { mockDeals } from "@/data/mockDeals";
+import { useDeals } from "@/context/DealsContext";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,9 +13,12 @@ import {
 } from "@/components/ui/card";
 
 export function DealDetail() {
-  const { id } = useParams();
 
-  const deal = mockDeals.find((deal) => deal.id === id);
+  const { id } = useParams();
+  const { getDealById } = useDeals();
+
+  const deal = id ? getDealById(id) : undefined;
+
 
   if (!deal) {
     return (
